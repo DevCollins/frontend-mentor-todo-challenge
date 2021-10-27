@@ -36,6 +36,28 @@ const Layout = ({ clicked }) => {
     setThemeColors(JSON.parse(localStorage.getItem("theme")));
     setDark(!dark);
   };
+
+  const filter = (category) => {
+    if (todos) {
+      if (category === "all") {
+        setTodoItems(JSON.parse(localStorage.getItem("todos")));
+      } else if (category === "active") {
+        const activeTodos = todos.filter((item) => {
+          return item.state === "pending";
+        });
+        setTodoItems(activeTodos);
+        console.log(category);
+      } else if (category === "completed") {
+        const completedTodos = todos.filter((item) => {
+          return item.state !== "pending";
+        });
+        setTodoItems(completedTodos);
+      } else {
+        setTodoItems(JSON.parse(localStorage.getItem("todos")));
+      }
+    }
+  };
+
   const lightThemeIcon = (
     <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26">
       <path
@@ -80,7 +102,19 @@ const Layout = ({ clicked }) => {
           return <TodoItem item={item} key={item.id} colors={themeColors} />;
         })}
       </div>
-      <div className="footer">Footer</div>
+      <div className="footer">
+        <div className="counter">
+          <p>{counter} items left</p>
+        </div>
+        <div className="filters">
+          <p onClick={() => filter("all")}>All</p>
+          <p onClick={() => filter("active")}>Active</p>
+          <p onClick={() => filter("completed")}>Completed</p>
+        </div>
+        <div className="clear">
+          <p>Clear Completed</p>
+        </div>
+      </div>
     </div>
   );
 };

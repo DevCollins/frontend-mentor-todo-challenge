@@ -14,7 +14,7 @@ const TodoItem = ({ item, colors }) => {
   };
   const checkStylingDone = {
     backgroundImage:
-      "linear-gradient(45deg, hsl(192, 100%, 67%), hsl(280, 87%, 65%))",
+      "linear-gradient(75deg, hsl(192, 100%, 67%), hsl(280, 87%, 65%))",
   };
   const textStylingUndone = {
     textDecoration: "none",
