@@ -4,3 +4,10 @@
   box-sizing: border-box;
   outline: none;
 }
+
+body {
+  font-family: "josefin Sans", sans-serif;
+  font-size: 18px;
+  max-width: 1440px;
+  min-height: 100vh;
+}

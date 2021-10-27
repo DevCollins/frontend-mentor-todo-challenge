@@ -1,0 +1,79 @@
+.todo-layout {
+  width: 50%;
+  min-height: 70vh;
+  position: fixed;
+  top: 8vh;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.todo-layout__title {
+  width: 100%;
+  height: calc(70vh / 5.5);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.todo-layout__title h3 {
+  color: white;
+  font-size: 2rem;
+  letter-spacing: 10px;
+}
+
+.todo-layout form {
+  width: 100%;
+  height: 7vh;
+  margin: 0.5rem 0;
+}
+
+.todo-layout__input {
+  width: 100%;
+  height: 100%;
+  border: none;
+  padding-left: 2rem;
+  border-radius: 3px;
+  box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.5);
+}
+
+.theme-toggle {
+  cursor: pointer;
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3px;
+}
+.theme-toggle svg {
+  width: 100%;
+  height: 100%;
+}
+
+.todo-items {
+  width: 100%;
+  height: 50vh;
+  border-radius: 5px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.5);
+}
+
+::-webkit-scrollbar {
+  background-color: inherit;
+  width: 0.4rem;
+}
+::-webkit-scrollbar-thumb {
+  background-color: hsl(235, 24%, 19%);
+  cursor: pointer;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-track {
+  background-color: inherit;
+}
+::-webkit-scrollbar-track-piece {
+  background-color: inherit;
+}
