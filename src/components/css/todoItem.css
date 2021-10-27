@@ -5,3 +5,24 @@
   height: 50px;
   text-decoration: none;
 }
+
+.checkmark {
+  width: 1rem;
+  height: 1rem;
+  cursor: pointer;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.todo-item p {
+  margin: 0 1rem;
+}
+
+.completed {
+  text-decoration: line-through;
+}
+.pending {
+  text-decoration: none;
+}
