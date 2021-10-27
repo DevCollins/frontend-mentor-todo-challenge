@@ -1,19 +1,19 @@
 import { useRef, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setTheme } from "../state/ThemeSlice";
+import { addTodoItem } from "../state/TodoItemsSlice";
 import TodoItem from "./TodoItem";
 import "./css/layout.css";
 
 const Layout = ({ clicked }) => {
-  const localTodos = JSON.parse(localStorage.getItem("todos"));
+  const dispatch = useDispatch();
+  const todos = useSelector((state) => state.todos);
   const localColors = JSON.parse(localStorage.getItem("theme"));
   const [themeColors, setThemeColors] = useState({ ...localColors });
   const todoInput = useRef(null);
-  const [todoItems, setTodoItems] = useState(localTodos ? localTodos : []);
-  const [counter, setCounter] = useState(localTodos ? localTodos.length : 0);
+  const [todoItems, setTodoItems] = useState(todos);
+  const [counter, setCounter] = useState(todos.length);
   const [dark, setDark] = useState(true);
-  const dispatch = useDispatch();
-  let todos = [];
   const addTodo = (event) => {
     event.preventDefault();
     let newTodoItem = todoInput.current.value;
@@ -23,11 +23,7 @@ const Layout = ({ clicked }) => {
         taskName: newTodoItem,
         state: "pending",
       };
-      if (JSON.parse(localStorage.getItem("todos"))) {
-        todos = JSON.parse(localStorage.getItem("todos"));
-      }
-      todos.push(todoItem);
-      localStorage.setItem("todos", JSON.stringify(todos));
+      dispatch(addTodoItem({ todoItem: todoItem }));
       setTodoItems(JSON.parse(localStorage.getItem("todos")));
       setCounter(counter + 1);
       todoInput.current.value = "";
