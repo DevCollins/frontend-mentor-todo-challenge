@@ -28,7 +28,7 @@ function App() {
         height: `100%`,
         width: "100%",
         resize: "none",
-        overflow: "auto",
+        overflow: "hidden",
         position: "fixed",
         top: "0",
         left: "0",
