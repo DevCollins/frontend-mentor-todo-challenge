@@ -80,10 +80,9 @@
 }
 
 ::-webkit-scrollbar {
-  width: 0.4rem;
-  background-color: transparent;
+  display: none;
 }
-::-webkit-scrollbar-thumb {
+/* ::-webkit-scrollbar-thumb {
   background-color: maroon;
   cursor: pointer;
   border-radius: 10px;
@@ -91,7 +90,7 @@
 
 ::-webkit-scrollbar-track-piece {
   display: none;
-}
+} */
 
 .footer {
   display: flex;
@@ -186,5 +185,11 @@
   }
   .todo-items {
     height: 80%;
+  }
+}
+
+@media (min-width: 400px) {
+  .todo-layout__title {
+    height: 15%;
   }
 }
