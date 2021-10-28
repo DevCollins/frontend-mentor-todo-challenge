@@ -80,15 +80,15 @@ const Layout = ({ clicked }) => {
   };
 
   const clearCompleted = () => {
-    const incompleteTodos = JSON.parse(localStorage.getItem("todos")).filter(
+    const completeTodos = JSON.parse(localStorage.getItem("todos")).filter(
       (todo) => {
-        return todo.state === "pending";
+        return todo.state === "done";
       }
     );
-    dispatch(resetTodos({ todos: incompleteTodos }));
 
-    setTodoItems(incompleteTodos);
-    setIncomplete(incompleteTodos.length);
+    dispatch(resetTodos({ todos: completeTodos }));
+    setTodoItems(JSON.parse(localStorage.getItem("todos")));
+    setIncomplete(JSON.parse(localStorage.getItem("todos")).length);
   };
   const lightThemeIcon = (
     <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26">
@@ -108,7 +108,94 @@ const Layout = ({ clicked }) => {
       />
     </svg>
   );
+  const mobileFooter = (
+    <div
+      className="mobile-footer"
+      style={{ backgroundColor: `${themeColors.veryDarkDesaturatedBlue}` }}
+    >
+      <p
+        ref={filterAll}
+        onClick={() => filter("all")}
+        style={{ color: "hsl(220, 98%, 61%)" }}
+      >
+        All
+      </p>
+      <p
+        ref={filterActive}
+        onClick={() => filter("active")}
+        style={{ color: themeColors.lightGrayishBlue }}
+      >
+        Active
+      </p>
+      <p
+        ref={filterCompleted}
+        onClick={() => filter("completed")}
+        style={{ color: themeColors.lightGrayishBlue }}
+      >
+        Completed
+      </p>
+    </div>
+  );
+  const desktopFooter = (
+    <div
+      className="footer"
+      style={{ backgroundColor: `${themeColors.veryDarkDesaturatedBlue}` }}
+    >
+      <div className="counter">
+        <p style={{ color: themeColors.lightGrayishBlue }}>
+          {incomplete} items left
+        </p>
+      </div>
+      <div className="filters">
+        <p
+          ref={filterAll}
+          onClick={() => filter("all")}
+          style={{ color: "hsl(220, 98%, 61%)" }}
+        >
+          All
+        </p>
+        <p
+          ref={filterActive}
+          onClick={() => filter("active")}
+          style={{ color: themeColors.lightGrayishBlue }}
+        >
+          Active
+        </p>
+        <p
+          ref={filterCompleted}
+          onClick={() => filter("completed")}
+          style={{ color: themeColors.lightGrayishBlue }}
+        >
+          Completed
+        </p>
+      </div>
+      <div className="clear">
+        <p
+          onClick={clearCompleted}
+          style={{ color: themeColors.lightGrayishBlue }}
+        >
+          Clear Completed
+        </p>
+      </div>
+    </div>
+  );
+  const mobileToggle = (
+    <div
+      className="mobile-toggle"
+      style={{ backgroundColor: `${themeColors.veryDarkDesaturatedBlue}` }}
+    >
+      <p style={{ color: themeColors.lightGrayishBlue }}>
+        {incomplete} items left
+      </p>
 
+      <p
+        onClick={clearCompleted}
+        style={{ color: themeColors.lightGrayishBlue }}
+      >
+        Clear Completed
+      </p>
+    </div>
+  );
   return (
     <div className="todo-layout" onClick={clicked}>
       <div className="todo-layout__title">
@@ -145,52 +232,24 @@ const Layout = ({ clicked }) => {
             setTodoItems(JSON.parse(localStorage.getItem("todos")))
           }
         >
-          {todoItems.map((item) => {
-            return <TodoItem item={item} key={item.id} colors={themeColors} />;
-          })}
-        </div>
-        <div
-          className="footer"
-          style={{ backgroundColor: `${themeColors.veryDarkDesaturatedBlue}` }}
-        >
-          <div className="counter">
-            <p style={{ color: themeColors.lightGrayishBlue }}>
-              {incomplete} items left
-            </p>
-          </div>
-          <div className="filters">
-            <p
-              ref={filterAll}
-              onClick={() => filter("all")}
-              style={{ color: "hsl(220, 98%, 61%)" }}
-            >
-              All
-            </p>
-            <p
-              ref={filterActive}
-              onClick={() => filter("active")}
-              style={{ color: themeColors.lightGrayishBlue }}
-            >
-              Active
-            </p>
-            <p
-              ref={filterCompleted}
-              onClick={() => filter("completed")}
-              style={{ color: themeColors.lightGrayishBlue }}
-            >
-              Completed
-            </p>
-          </div>
-          <div className="clear">
-            <p
-              onClick={clearCompleted}
-              style={{ color: themeColors.lightGrayishBlue }}
-            >
-              Clear Completed
-            </p>
+          <div
+            style={{
+              width: "100%",
+              height: "100%",
+            }}
+          >
+            {todoItems.map((item) => {
+              return (
+                <TodoItem item={item} key={item.id} colors={themeColors} />
+              );
+            })}
           </div>
         </div>
+        {window.innerWidth > 375 ? null : mobileToggle}
+        {window.innerWidth > 375 ? desktopFooter : null}
       </div>
+
+      {window.innerWidth > 375 ? null : mobileFooter}
     </div>
   );
 };

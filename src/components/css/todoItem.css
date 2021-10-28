@@ -1,10 +1,11 @@
 .todo-item {
   display: flex;
   align-items: center;
-  padding: 0 0.5rem;
-  height: 50px;
+  justify-content: space-between;
+  min-height: 50px;
   text-decoration: none;
   position: relative;
+  padding-left: 1.2rem;
 }
 
 .checkmark {
@@ -17,8 +18,14 @@
   align-items: center;
 }
 
-.todo-item p {
+.text {
+  text-align: left;
+  width: 80%;
+}
+
+.text p {
   margin: 0 1rem;
+  font-size: 14px;
 }
 
 .todo-item p:hover {
@@ -33,15 +40,18 @@
 }
 
 .remove-todo {
-  position: absolute;
-  transition: all 0.4s ease;
-  right: 0.5rem;
-  margin-top: auto;
   justify-content: center;
   align-items: center;
   display: flex;
   opacity: 0;
   height: 2rem;
+  margin-right: 0.8rem;
   width: 2rem;
   cursor: pointer;
+}
+
+@media (min-width: 375px) {
+  .remove-todo {
+    opacity: 1;
+  }
 }

@@ -76,9 +76,11 @@ const TodoItem = ({ item, colors }) => {
       >
         {done ? checkIcon : null}
       </div>
-      <p style={done ? textStylingDone : textStylingUndone} ref={todoItem}>
-        {item.taskName}
-      </p>
+      <div className="text">
+        <p style={done ? textStylingDone : textStylingUndone} ref={todoItem}>
+          {item.taskName}
+        </p>
+      </div>
       <div
         className="remove-todo"
         onClick={removeTodoClicked}
