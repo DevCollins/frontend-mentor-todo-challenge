@@ -25,10 +25,13 @@ function App() {
       className="App"
       style={{
         backgroundColor: `${themeColors.veryDarkBlue}`,
-        minHeight: `100%`,
+        height: `100%`,
         width: "100%",
         resize: "none",
-        overflow: "hidden",
+        overflow: "auto",
+        position: "fixed",
+        top: "0",
+        left: "0",
       }}
     >
       <div
