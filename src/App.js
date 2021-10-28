@@ -27,6 +27,7 @@ function App() {
         backgroundColor: `${themeColors.veryDarkBlue}`,
         minHeight: `${window.innerHeight}`,
         resize: "none",
+        overflow: "hidden",
       }}
     >
       <div
