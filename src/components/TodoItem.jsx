@@ -21,7 +21,10 @@ const TodoItem = ({ item, colors }) => {
     textDecoration: "none",
     color: `${colors.lightGrayishBlue}`,
   };
-  const textStylingDone = { textDecoration: "line-through" };
+  const textStylingDone = {
+    textDecoration: "line-through",
+    color: `${colors.lightGray}`,
+  };
   const showButton = () => {
     removeButton.current.style.opacity = "1";
   };
@@ -62,7 +65,7 @@ const TodoItem = ({ item, colors }) => {
       id={item.id}
       style={{
         backgroundColor: `${colors.veryDarkDesaturatedBlue}`,
-        borderBottom: `1px solid ${colors.darkGrayishBlue}`,
+        borderBottom: `1px solid ${colors.lightGray}`,
         color: `${colors.lightGrayishBlue}`,
       }}
       onMouseEnter={showButton}

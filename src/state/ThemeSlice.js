@@ -7,6 +7,7 @@ const darkThemeColors = {
   darkGrayishBlue: "hsl(234, 11%, 52%)",
   veryDarkGrayishBlue: "hsl(233, 14%, 35%)",
   veryLightGrayishBlue: "hsl(236, 33%, 92%)",
+  lightGray: " hsla(234, 39%, 85%, 0.281)",
 };
 const lightThemeColors = {
   veryDarkBlue: "hsl(0, 0%, 98%)",
@@ -15,6 +16,7 @@ const lightThemeColors = {
   darkGrayishBlue: "rgb(77, 80, 102)",
   veryDarkGrayishBlue: "hsl(235, 19%, 35%)",
   veryLightGrayishBlue: "hsl(236, 33%, 92%)",
+  lightGray: "hsla(0, 0%, 33%, 0.727))",
 };
 const initialState = {
   ...darkThemeColors,
