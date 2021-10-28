@@ -126,10 +126,9 @@
   .todo-layout {
     width: 90%;
     min-width: 80%;
-    top: 45%;
   }
   .todo-items {
-    height: 60%;
+    height: 55%;
     min-height: 350px;
   }
 }
