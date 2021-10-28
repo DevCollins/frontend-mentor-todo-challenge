@@ -9,5 +9,7 @@ body {
   font-family: "josefin Sans", sans-serif;
   font-size: 18px;
   max-width: 1440px;
-  min-height: 100vh;
+  min-height: 100%;
+  overflow: hidden;
+  resize: none;
 }
