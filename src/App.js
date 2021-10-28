@@ -32,12 +32,15 @@ function App() {
     >
       <div
         style={{
-          height: "35vh",
+          height: "35%",
+          width: "100%",
           backgroundImage: `url("${
             themeColors.theme === "dark" ? desktopImageDark : desktopImageLight
           }")`,
           backgroundPositon: "right",
-          position: "relative",
+          position: "fixed",
+          top: "0",
+          left: "0",
         }}
       ></div>
       <Layout clicked={checkTheme} />

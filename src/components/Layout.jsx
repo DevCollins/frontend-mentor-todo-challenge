@@ -80,9 +80,11 @@ const Layout = ({ clicked }) => {
   };
 
   const clearCompleted = () => {
-    const incompleteTodos = todos.filter((todo) => {
-      return todo.state === "pending";
-    });
+    const incompleteTodos = JSON.parse(localStorage.getItem("todos")).filter(
+      (todo) => {
+        return todo.state === "pending";
+      }
+    );
     dispatch(resetTodos({ todos: incompleteTodos }));
 
     setTodoItems(incompleteTodos);
