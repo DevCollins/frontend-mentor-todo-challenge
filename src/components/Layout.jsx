@@ -112,7 +112,7 @@ const Layout = ({ clicked }) => {
       <div className="todo-layout__title">
         <h3>TODO</h3>
         <div className="theme-toggle" onClick={toggleTheme}>
-          {!themeColors.theme === "dark" ? darkThemeicon : lightThemeIcon}
+          {themeColors.theme === "dark" ? lightThemeIcon : darkThemeicon}
         </div>
       </div>
       <form onSubmit={(event) => addTodo(event)}>
