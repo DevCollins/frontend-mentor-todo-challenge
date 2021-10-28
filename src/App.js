@@ -25,7 +25,8 @@ function App() {
       className="App"
       style={{
         backgroundColor: `${themeColors.veryDarkBlue}`,
-        minHeight: "100vh",
+        minHeight: `${window.innerHeight}`,
+        resize: "none",
       }}
     >
       <div
