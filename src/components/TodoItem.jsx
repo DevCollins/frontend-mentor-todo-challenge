@@ -1,9 +1,10 @@
 import { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
-import { updateTodoItem } from "../state/TodoItemsSlice";
+import { updateTodoItem, removeTodoItem } from "../state/TodoItemsSlice";
 import "./css/todoItem.css";
 
 const TodoItem = ({ item, colors }) => {
+  const removeButton = useRef();
   const dispatch = useDispatch();
   const todoItem = useRef();
   const checkMark = useRef();
@@ -21,16 +22,28 @@ const TodoItem = ({ item, colors }) => {
     color: `${colors.lightGrayishBlue}`,
   };
   const textStylingDone = { textDecoration: "line-through" };
+  const showButton = () => {
+    removeButton.current.style.opacity = "1";
+  };
+
+  const hideButton = () => {
+    removeButton.current.style.opacity = "0";
+  };
   const toggleCompletionState = (id) => {
     const updatedItem = { ...item };
     if (item.state === "pending") {
       updatedItem.state = "done";
+      dispatch(updateTodoItem({ itemId: id, item: updatedItem }));
       setDone(!done);
-    } else if (item.state === "done") {
+    } else {
       updatedItem.state = "pending";
+      dispatch(updateTodoItem({ itemId: id, item: updatedItem }));
       setDone(!done);
     }
-    dispatch(updateTodoItem({ itemId: id, item: updatedItem }));
+  };
+
+  const removeTodoClicked = () => {
+    dispatch(removeTodoItem({ itemId: item.id }));
   };
   const checkIcon = (
     <svg xmlns="http://www.w3.org/2000/svg" width="11" height="9">
@@ -45,24 +58,40 @@ const TodoItem = ({ item, colors }) => {
   return item ? (
     <div
       className="todo-item"
+      draggable={true}
       id={item.id}
       style={{
         backgroundColor: `${colors.veryDarkDesaturatedBlue}`,
         borderBottom: `1px solid ${colors.darkGrayishBlue}`,
         color: `${colors.lightGrayishBlue}`,
       }}
+      onMouseEnter={showButton}
+      onMouseLeave={hideButton}
     >
       <div
         className="checkmark"
-        ref={checkMark}
         onClick={() => toggleCompletionState(item.id)}
         style={done ? checkStylingDone : checkStylingUndone}
+        ref={checkMark}
       >
         {done ? checkIcon : null}
       </div>
       <p style={done ? textStylingDone : textStylingUndone} ref={todoItem}>
         {item.taskName}
       </p>
+      <div
+        className="remove-todo"
+        onClick={removeTodoClicked}
+        ref={removeButton}
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18">
+          <path
+            fill="#494C6B"
+            fillRule="evenodd"
+            d="M16.97 0l.708.707L9.546 8.84l8.132 8.132-.707.707-8.132-8.132-8.132 8.132L0 16.97l8.132-8.132L0 .707.707 0 8.84 8.132 16.971 0z"
+          />
+        </svg>
+      </div>
     </div>
   ) : null;
 };

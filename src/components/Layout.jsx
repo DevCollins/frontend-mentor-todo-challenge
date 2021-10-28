@@ -1,18 +1,26 @@
 import { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setTheme } from "../state/ThemeSlice";
-import { addTodoItem } from "../state/TodoItemsSlice";
+import { addTodoItem, resetTodos } from "../state/TodoItemsSlice";
 import TodoItem from "./TodoItem";
 import "./css/layout.css";
 
 const Layout = ({ clicked }) => {
+  const filterAll = useRef();
+  const filterActive = useRef();
+  const filterCompleted = useRef();
   const dispatch = useDispatch();
   const todos = useSelector((state) => state.todos);
   const localColors = JSON.parse(localStorage.getItem("theme"));
   const [themeColors, setThemeColors] = useState({ ...localColors });
   const todoInput = useRef(null);
   const [todoItems, setTodoItems] = useState(todos);
-  const [counter, setCounter] = useState(todos.length);
+  const [counter, setCounter] = useState(
+    todos.length !== 0 ? todos[todos.length - 1].id : 0
+  );
+  const [incomplete, setIncomplete] = useState(
+    todos ? todos.filter((todo) => todo.state === "pending").length : 0
+  );
   const [dark, setDark] = useState(true);
   const addTodo = (event) => {
     event.preventDefault();
@@ -41,23 +49,45 @@ const Layout = ({ clicked }) => {
     if (todos) {
       if (category === "all") {
         setTodoItems(JSON.parse(localStorage.getItem("todos")));
+        filterAll.current.style.color = "hsl(220, 98%, 61%)";
+        filterCompleted.current.style.color = themeColors.lightGrayishBlue;
+        filterActive.current.style.color = themeColors.lightGrayishBlue;
       } else if (category === "active") {
-        const activeTodos = todos.filter((item) => {
-          return item.state === "pending";
-        });
+        const activeTodos = JSON.parse(localStorage.getItem("todos")).filter(
+          (item) => {
+            return item.state === "pending";
+          }
+        );
         setTodoItems(activeTodos);
-        console.log(category);
+        filterActive.current.style.color = "hsl(220, 98%, 61%)";
+        filterCompleted.current.style.color = themeColors.lightGrayishBlue;
+        filterAll.current.style.color = themeColors.lightGrayishBlue;
       } else if (category === "completed") {
-        const completedTodos = todos.filter((item) => {
-          return item.state !== "pending";
-        });
+        const completedTodos = JSON.parse(localStorage.getItem("todos")).filter(
+          (item) => {
+            return item.state !== "pending";
+          }
+        );
         setTodoItems(completedTodos);
+        filterCompleted.current.style.color = "hsl(220, 98%, 61%)";
+        filterAll.current.style.color = themeColors.darkGrayishBlue;
+        filterActive.current.style.color = themeColors.darkGrayishBlue;
       } else {
         setTodoItems(JSON.parse(localStorage.getItem("todos")));
+        filterAll.current.style.color = "hsl(220, 98%, 61%)";
       }
     }
   };
 
+  const clearCompleted = () => {
+    const incompleteTodos = todos.filter((todo) => {
+      return todo.state === "pending";
+    });
+    dispatch(resetTodos({ todos: incompleteTodos }));
+
+    setTodoItems(incompleteTodos);
+    setIncomplete(incompleteTodos.length);
+  };
   const lightThemeIcon = (
     <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26">
       <path
@@ -82,7 +112,7 @@ const Layout = ({ clicked }) => {
       <div className="todo-layout__title">
         <h3>TODO</h3>
         <div className="theme-toggle" onClick={toggleTheme}>
-          {themeColors.theme === "dark" ? darkThemeicon : lightThemeIcon}
+          {!themeColors.theme === "dark" ? darkThemeicon : lightThemeIcon}
         </div>
       </div>
       <form onSubmit={(event) => addTodo(event)}>
@@ -97,22 +127,66 @@ const Layout = ({ clicked }) => {
           }}
         />
       </form>
-      <div className="todo-items">
-        {todoItems.map((item) => {
-          return <TodoItem item={item} key={item.id} colors={themeColors} />;
-        })}
-      </div>
-      <div className="footer">
-        <div className="counter">
-          <p>{counter} items left</p>
+      <div
+        className="todo-items"
+        onClick={() =>
+          setIncomplete(
+            JSON.parse(localStorage.getItem("todos")).filter(
+              (todo) => todo.state === "pending"
+            ).length
+          )
+        }
+      >
+        <div
+          className="todo-items-container"
+          onClick={() =>
+            setTodoItems(JSON.parse(localStorage.getItem("todos")))
+          }
+        >
+          {todoItems.map((item) => {
+            return <TodoItem item={item} key={item.id} colors={themeColors} />;
+          })}
         </div>
-        <div className="filters">
-          <p onClick={() => filter("all")}>All</p>
-          <p onClick={() => filter("active")}>Active</p>
-          <p onClick={() => filter("completed")}>Completed</p>
-        </div>
-        <div className="clear">
-          <p>Clear Completed</p>
+        <div
+          className="footer"
+          style={{ backgroundColor: `${themeColors.veryDarkDesaturatedBlue}` }}
+        >
+          <div className="counter">
+            <p style={{ color: themeColors.lightGrayishBlue }}>
+              {incomplete} items left
+            </p>
+          </div>
+          <div className="filters">
+            <p
+              ref={filterAll}
+              onClick={() => filter("all")}
+              style={{ color: "hsl(220, 98%, 61%)" }}
+            >
+              All
+            </p>
+            <p
+              ref={filterActive}
+              onClick={() => filter("active")}
+              style={{ color: themeColors.lightGrayishBlue }}
+            >
+              Active
+            </p>
+            <p
+              ref={filterCompleted}
+              onClick={() => filter("completed")}
+              style={{ color: themeColors.lightGrayishBlue }}
+            >
+              Completed
+            </p>
+          </div>
+          <div className="clear">
+            <p
+              onClick={clearCompleted}
+              style={{ color: themeColors.lightGrayishBlue }}
+            >
+              Clear Completed
+            </p>
+          </div>
         </div>
       </div>
     </div>

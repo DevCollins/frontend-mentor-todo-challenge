@@ -1,5 +1,7 @@
 .todo-layout {
   width: 50%;
+  max-width: 700px;
+  min-width: 400px;
   min-height: 70vh;
   position: fixed;
   top: 8vh;
@@ -55,27 +57,33 @@
 
 .todo-items {
   width: 100%;
-  height: 50vh;
-  border-radius: 5px;
-  overflow-x: hidden;
-  overflow-y: scroll;
+  height: 55vh;
+  border-radius: 10px;
+  position: relative;
   box-shadow: 3px 5px 10px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.todo-items-container {
+  width: 100%;
+  height: 90%;
+  overflow-y: auto;
+  position: relative;
 }
 
 ::-webkit-scrollbar {
-  background-color: inherit;
   width: 0.4rem;
+  background-color: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background-color: hsl(235, 24%, 19%);
+  background-color: maroon;
   cursor: pointer;
   border-radius: 10px;
 }
-::-webkit-scrollbar-track {
-  background-color: maroon;
-}
+
 ::-webkit-scrollbar-track-piece {
-  background-color: inherit;
+  display: none;
 }
 
 .footer {
@@ -83,9 +91,8 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  height: 5rem;
-  background: maroon;
   padding: 0 0.3rem;
+  height: 10%;
 }
 .counter {
   flex: 1;
@@ -104,7 +111,17 @@
 }
 
 .footer p {
-  font-size: 14px;
-  color: white;
+  font-size: 12px;
   cursor: pointer;
+  padding: 0.4rem 0;
+}
+
+@media (max-width: 375px) {
+  .todo-layout {
+    width: 90%;
+    min-width: 80%;
+  }
+  .todo-items {
+    height: 60vh;
+  }
 }

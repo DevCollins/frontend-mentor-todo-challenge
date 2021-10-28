@@ -4,6 +4,7 @@
   padding: 0 0.5rem;
   height: 50px;
   text-decoration: none;
+  position: relative;
 }
 
 .checkmark {
@@ -20,9 +21,27 @@
   margin: 0 1rem;
 }
 
+.todo-item p:hover {
+  color: hsl(236, 33%, 92%);
+}
+
 .completed {
   text-decoration: line-through;
 }
 .pending {
   text-decoration: none;
+}
+
+.remove-todo {
+  position: absolute;
+  transition: all 0.4s ease;
+  right: 0.5rem;
+  margin-top: auto;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  opacity: 0;
+  height: 2rem;
+  width: 2rem;
+  cursor: pointer;
 }
