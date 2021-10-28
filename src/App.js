@@ -14,6 +14,7 @@ function App() {
       localStorage.setItem("theme", JSON.stringify(colors));
     }
     setThemeColors(JSON.parse(localStorage.getItem("theme")));
+    console.log(JSON.parse(localStorage.getItem("todos")));
   }, [colors]);
 
   const checkTheme = () => {

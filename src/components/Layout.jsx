@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setTheme } from "../state/ThemeSlice";
-import { addTodoItem, resetTodos } from "../state/TodoItemsSlice";
+import { addTodoItem, removeTodoItem } from "../state/TodoItemsSlice";
 import TodoItem from "./TodoItem";
 import "./css/layout.css";
 
@@ -10,11 +10,12 @@ const Layout = ({ clicked }) => {
   const filterActive = useRef();
   const filterCompleted = useRef();
   const dispatch = useDispatch();
+  const localTodos = JSON.parse(localStorage.getItem("todos"));
   const todos = useSelector((state) => state.todos);
   const localColors = JSON.parse(localStorage.getItem("theme"));
   const [themeColors, setThemeColors] = useState({ ...localColors });
   const todoInput = useRef(null);
-  const [todoItems, setTodoItems] = useState(todos);
+  const [todoItems, setTodoItems] = useState(localTodos ? localTodos : todos);
   const [counter, setCounter] = useState(
     todos.length !== 0 ? todos[todos.length - 1].id : 0
   );
@@ -86,9 +87,12 @@ const Layout = ({ clicked }) => {
       }
     );
 
-    dispatch(resetTodos({ todos: completeTodos }));
-    setTodoItems(JSON.parse(localStorage.getItem("todos")));
-    setIncomplete(JSON.parse(localStorage.getItem("todos")).length);
+    completeTodos.forEach((todo) => {
+      dispatch(removeTodoItem({ itemId: todo.id }));
+    });
+    const incompleteItems = JSON.parse(localStorage.getItem("todos"));
+    setTodoItems(incompleteItems);
+    setIncomplete(incompleteItems.length);
   };
   const lightThemeIcon = (
     <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26">

@@ -5,13 +5,12 @@
   min-height: 60%;
   height: 70%;
   position: absolute;
-  top: 40%;
+  top: 50%;
   left: 50%;
-  transform: translate(-50%, -40%);
+  transform: translate(-50%, -50%);
   display: flex;
   flex-direction: column;
   align-items: center;
-  overflow-y: hidden;
   resize: none;
 }
 
@@ -165,7 +164,7 @@
 @media (max-width: 375px) {
   .todo-layout {
     width: 90%;
-    top: 30%;
+    top: 40%;
     min-width: 80%;
     height: 90%;
   }

@@ -25,14 +25,8 @@ const todoItemsSlice = createSlice({
       localStorage.setItem("todos", JSON.stringify(state));
     },
     resetTodos(state, action) {
-      const completeTodos = action.payload.todos;
-      const completeIndices = completeTodos.map((todo) => {
-        return state.findIndex((item) => item.id === todo.id);
-      });
-      for (let i = 0; i < completeIndices.length; i++) {
-        state.splice(completeIndices[i], 1);
-      }
-      localStorage.setItem("todos", JSON.stringify(state));
+      state = action.payload.todos;
+      localStorage.setItem("todos", JSON.stringify(action.payload.todos));
     },
   },
 });
