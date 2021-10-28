@@ -26,6 +26,7 @@ function App() {
       style={{
         backgroundColor: `${themeColors.veryDarkBlue}`,
         minHeight: `100%`,
+        width: "100%",
         resize: "none",
         overflow: "hidden",
       }}

@@ -2,12 +2,12 @@
   width: 50%;
   max-width: 700px;
   min-width: 350px;
-  min-height: 70%;
-  height: 80%;
-  position: fixed;
-  top: 8%;
+  min-height: 60%;
+  height: 70%;
+  position: absolute;
+  top: 40%;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translate(-50%, -40%);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -16,8 +16,8 @@
 
 .todo-layout__title {
   width: 100%;
-  height: calc(70% / 5.5);
-  min-height: 90px;
+  height: 30%;
+  min-height: 70px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -106,12 +106,14 @@
   display: flex;
   display: flex;
   justify-content: center;
+  text-align: center;
 }
 .filters p {
   margin: 0 0.5rem;
 }
 .clear {
   flex: 1;
+  text-align: center;
 }
 
 .footer p {
@@ -124,9 +126,19 @@
   .todo-layout {
     width: 90%;
     min-width: 80%;
+    top: 45%;
   }
   .todo-items {
     height: 100%;
-    min-height: 400px;
+    min-height: 350px;
+  }
+}
+
+@media (min-height: 700px) {
+  .todo-layout {
+    height: 80%;
+  }
+  .todo-items {
+    height: 60%;
   }
 }
